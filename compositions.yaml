@@ -1,0 +1,142 @@
+Hakaphos Green:
+  macronutrients:
+    N (NO3-):  0.07
+    N (NH4+):  0.13
+    P:         0.0109105
+    K:         0.041508
+    Mg:        0.0120608
+    Ca:        0.0
+    S:         0.0
+  micronutrients:
+    Fe:        0.00075
+    Zn:        0.00015
+    B:         0.0001
+    Mn:        0.0005
+    Cu:        0.0002
+    Mo:        0.00001
+
+
+Hakaphos Blue: 
+  macronutrients:
+    N (NO3-):  0.045
+    N (NH4+):  0.105
+    P:         0.021821
+    K:         0.062262
+    Mg:        0.0120608
+    Ca:        0.0
+    S:         0.0
+  micronutrients:
+    Fe:        0.00075
+    Zn:        0.00015
+    B:         0.0001
+    Mn:        0.0005
+    Cu:        0.0002
+    Mo:        0.00001
+
+
+Hakaphos Red: 
+  macronutrients:
+    N (NO3-):  0.03
+    N (NH4+):  0.05
+    P:         0.0261852
+    K:         0.0996192
+    Mg:        0.0241216
+    Ca:        0.0
+    S:         0.0
+  micronutrients:
+    Fe:        0.00075
+    Zn:        0.00015
+    B:         0.0001
+    Mn:        0.0005
+    Cu:        0.0002
+    Mo:        0.00001
+
+
+CAN: 
+  macronutrients:
+    N (NO3-):  0.144
+    N (NH4+):  0.011
+    P:         0.0
+    K:         0.0
+    Mg:        0.0
+    Ca:        0.19406644742193763
+    S:         0.0
+  micronutrients:
+    Fe:        0.0
+    Zn:        0.0
+    B:         0.0
+    Mn:        0.0
+    Cu:        0.0
+    Mo:        0.0
+
+
+Magnesium sulfate heptahydrate (Epsom Salt): 
+  macronutrients:
+    N (NO3-):  0.0
+    N (NH4+):  0.0
+    P:         0.0
+    K:         0.0
+    Mg:        0.09861000665379185
+    Ca:        0.0
+    S:         0.13011408818708514
+  micronutrients:
+    Fe:        0.0
+    Zn:        0.0
+    B:         0.0
+    Mn:        0.0
+    Cu:        0.0
+    Mo:        0.0
+
+
+Water (Berlin): 
+  macronutrients:
+    N (NO3-):  0.0
+    N (NH4+):  0.0
+    P:         0.0
+    K:         0.000005
+    Mg:        0.0000104
+    Ca:        0.00011
+    S:         0.00003638779589032540
+  micronutrients:
+    Fe:        0.00000003
+    Zn:        0.
+    B:         0.
+    Mn:        0.
+    Cu:        0.
+    Mo:        0.
+
+
+Howard Resh composition (peppers): 
+  macronutrients:
+    N (NO3-):  0.000190
+    N (NH4+):  0.000018
+    P:         0.000040
+    K:         0.000340
+    Mg:        0.000050
+    Ca:        0.000170
+    S:         0.000360
+  micronutrients:
+    Fe:        0.000005
+    Zn:        0.00000033
+    B:         0.00000033
+    Mn:        0.00000055
+    Cu:        0.00000005
+    Mo:        0.00000005
+
+
+Aquamarine (fruit and berry): 
+  macronutrients:
+    N (NO3-):  0.10
+    N (NH4+):  0.02
+    P:         0.02618572243787999
+    K:         0.1452762885503477
+    Mg:        0.006030418816990869
+    Ca:        0.0
+    S:         0.007
+  micronutrients:
+    Fe:        0.00054
+    Zn:        0.00014
+    B:         0.0002
+    Mn:        0.00042
+    Cu:        0.0001
+    Mo:        0.00004
