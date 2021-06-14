@@ -1,13 +1,11 @@
+from functools import cached_property
+
 import numpy as np
 from tabulate import tabulate
 
 from . import composition
 from . import core
 
-
-# TODO: cache all the properties (@cache or via attributes?)
-# optimization already works fast as hell, but there is not reason to compute
-# the same values multiple times in a row
 
 class Solution:
     def __init__(self, mass_total, formulation, water, *fertilizers):
@@ -57,43 +55,43 @@ class Solution:
         return '\n\n'.join((table_solution, self.composition.__repr__()))
 
 
-    @property
+    @cached_property
     def mass_water(self):
         return self.mass_total - sum(self.formulation)
 
-    @property
+    @cached_property
     def w(self):
         '''The water vector.'''
         return self.water.vector
 
-    @property
+    @cached_property
     def W(self):
         '''The special matrix made of the water vector.'''
         return np.outer(self.w, np.ones(len(self.fertilizers)))
 
-    @property
+    @cached_property
     def F(self):
         '''The matrix of fertilizers.'''
         return np.stack([f.vector for f in self.fertilizers]).transpose()
 
-    @property
+    @cached_property
     def A(self):
         '''The LHS matrix of the linear system.'''
         return self.F - self.W
 
-    @property
+    @cached_property
     def b(self):
         '''The RHS vector of the linear system.'''
         return self.mass_total * (self.composition_target.vector - self.w)
 
-    @property
+    @cached_property
     def vector(self):
         '''Gives the resulting composition vector.'''
         return (
             self.F @ self.formulation + self.mass_water * self.water.vector
             ) / self.mass_total
 
-    @property
+    @cached_property
     def composition(self):
         '''Gives the resulting Composition object.'''
         return composition.Composition(
@@ -102,23 +100,23 @@ class Solution:
             micronutrients=self.vector[-len(composition.micronutrients_desc):],
             )
 
-    @property
+    @cached_property
     def residual(self):
         return core.residual(self.A, self.b, self.formulation)
 
-    @property
+    @cached_property
     def R(self):
         return core.norm2(self.residual)
 
-    @property
+    @cached_property
     def grad(self):
         return core.gradient(self.A, self.b, self.formulation)
 
-    @property
+    @cached_property
     def grad_norm(self):
         return core.norm(self.grad)
 
-    @property
+    @cached_property
     def grad_norm2(self):
         return core.norm2(self.grad)
 
@@ -126,15 +124,15 @@ class Solution:
     def project(self, v):
         return v.clip(0, self.mass_total/len(self.fertilizers))
 
-    @property
+    @cached_property
     def Pgrad(self):
         return self.grad
 
-    @property
+    @cached_property
     def Pgrad_norm(self):
         return core.norm(self.Pgrad)
 
-    @property
+    @cached_property
     def Pgrad_norm2(self):
         return core.norm2(self.Pgrad)
 
