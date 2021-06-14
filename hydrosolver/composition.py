@@ -22,21 +22,25 @@ micronutrients_desc = [
 ]
 
 
-class Composition:
-    @classmethod
-    def load(cls, database_dict):
-        compositions = {}
-        for name, nutrients in database_dict.items():
-            composition = Composition(
-                name=name,
-                macronutrients=np.array(
-                        list(nutrients['macronutrients'].values())),
-                micronutrients=np.array(
-                        list(nutrients['micronutrients'].values())),
-                )
-            compositions.update({composition.name: composition})
+def load_db(database_dict):
+    compositions = {
+            name: load({name: nutrients})
+            for name, nutrients in database_dict.items()
+            }
 
-        return compositions
+    return compositions
+
+def load(composition_dict):
+    '''Load composition from a dict.'''
+
+    composition = Composition()
+    composition.name, nutrients_dict = composition_dict.popitem()
+    composition.macronutrients = list(nutrients_dict['macronutrients'].values())
+    composition.micronutrients = list(nutrients_dict['micronutrients'].values())
+
+    return composition
+
+class Composition:
 
     def __init__(
             self,
