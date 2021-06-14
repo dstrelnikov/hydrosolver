@@ -3,11 +3,12 @@ import yaml
 
 from hydrosolver.solution import Solution
 from hydrosolver.composition import Composition
+from hydrosolver import composition
 from hydrosolver import optimization
 
 
 with open('compositions.yaml') as db_file:
-    db = Composition.load(yaml.safe_load(db_file))
+    db = composition.load_db(yaml.safe_load(db_file))
 
 fertilizers = [
         db[name] for name in (
