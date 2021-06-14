@@ -102,3 +102,25 @@ class Composition:
     def vector(self):
         '''All the nutrients as a vector (for optimization).'''
         return np.concatenate((self.macronutrients, self.micronutrients))
+
+    def dump(self):
+        '''Represent composition as a dict.'''
+
+        macronutrients_dict = {
+                nutrient: float(amount)
+                for nutrient, amount
+                in zip(macronutrients_desc, self.macronutrients)
+                }
+        micronutrients_dict = {
+                nutrient: float(amount)
+                for nutrient, amount
+                in zip(micronutrients_desc, self.micronutrients)
+                }
+        composition_dict = {
+                self.name: {
+                    'macronutrients': macronutrients_dict,
+                    'micronutrients': micronutrients_dict,
+                    }
+                }
+
+        return composition_dict
