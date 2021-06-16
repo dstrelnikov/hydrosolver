@@ -21,3 +21,15 @@ def norm(v):
 
 def norm2(v):
     return np.dot(v, v)
+
+def project_simplex(v, m):
+    '''Projects vector v∈R(n+1) to the simplex m*Δn.'''
+    # see Algorithm 2
+    # https://mblondel.org/publications/mblondel-icpr2014.pdf
+
+    v_sorted = np.flip(np.sort(v))
+    pi = (np.cumsum(v_sorted) - m) / (np.arange(len(v)) + 1)
+    theta = pi[v_sorted - pi > 0][-1]
+    projection = np.maximum(v - theta, 0)
+
+    return projection
