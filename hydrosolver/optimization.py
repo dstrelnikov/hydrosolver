@@ -1,5 +1,5 @@
 import numpy as np
-from .core import project
+from .core import project_simplex as project
 
 
 class DescendLoopException(Exception):
@@ -35,9 +35,9 @@ def gradient_descent(
                 print(f"{i:3}.{j:<2}{step:15.7e}", end='', flush=True)
 
                 # make a step in the negative gradient direction ond project
-                # the new formulation on the feasible set
+                # the new extended formulation on the simplex
                 formulation_trial = project(
-                        solution.formulation - step * solution.grad, mass)
+                        solution.x - step * solution.grad, mass)[:-1]
 
                 if np.allclose(formulation_trial, solution.formulation):
                     raise DescendLoopException
