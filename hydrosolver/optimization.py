@@ -1,4 +1,5 @@
 import numpy as np
+from .core import project
 
 
 class DescendLoopException(Exception):
@@ -21,6 +22,7 @@ def gradient_descent(
         print('Starting the gradient descent procedure...')
         descent = [solution]
         step = step_init
+        mass = solution.mass_total
 
         print(f"{'i':>3}.{'j':<2}{'step':>15}{'R':>15}{'norm(grad)':>15}{'norm(Pgrad)':>15}")
         print(f"{solution.R:36.7e}{solution.grad_norm:15.7e}{solution.Pgrad_norm:15.7e}")
@@ -32,9 +34,10 @@ def gradient_descent(
             while True:
                 print(f"{i:3}.{j:<2}{step:15.7e}", end='', flush=True)
 
-                # TODO: here formulation_trial must be projected on the feasible set
-                formulation_trial = solution.project(
-                    solution.formulation - step * solution.grad)
+                # make a step in the negative gradient direction ond project
+                # the new formulation on the feasible set
+                formulation_trial = project(
+                        solution.formulation - step * solution.grad, mass)
 
                 if np.allclose(formulation_trial, solution.formulation):
                     raise DescendLoopException
@@ -51,7 +54,7 @@ def gradient_descent(
 
             # after a successful iteration adjust the step size for the next iteration
             if step_prediction:
-                step *= solution.Pgrad_norm2 / simulation_trial.Pgrad_norm2
+                step *= solution.Pgrad_norm2 / solution_trial.Pgrad_norm2
             if j==0:
                 step /= beta
 

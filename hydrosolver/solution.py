@@ -120,10 +120,7 @@ class Solution:
     def grad_norm2(self):
         return core.norm2(self.grad)
 
-    # a dummy projection operator
-    def project(self, v):
-        return v.clip(0, self.mass_total/len(self.fertilizers))
-
+    # dummy projected gradient
     @cached_property
     def Pgrad(self):
         return self.grad
