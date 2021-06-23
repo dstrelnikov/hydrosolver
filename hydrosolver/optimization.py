@@ -1,5 +1,6 @@
 import numpy as np
 from .core import project_simplex as project
+from . import core
 
 
 class DescendLoopException(Exception):
@@ -78,3 +79,7 @@ def gradient_descent(
     print('Terminating.')
 
     return descent
+
+
+def solve_lstsq(solution):
+    return solution.spawn(core.solve_lstsq(solution.A, solution.b)[:-1])
