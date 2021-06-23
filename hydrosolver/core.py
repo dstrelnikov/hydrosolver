@@ -22,15 +22,6 @@ def norm(v):
 def norm2(v):
     return np.dot(v, v)
 
-def project(v, m):
-    '''Projects v onto the feasible set.'''
-
-    v_ = v.clip(0, m)
-    if v_.sum() > m:
-        return project_simplex(v_, m)
-    else:
-        return v_
-
 def project_simplex(v, m):
     '''Projects vector v∈R(n+1) to the simplex m*Δn.'''
     # see Algorithm 2
