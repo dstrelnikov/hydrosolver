@@ -159,7 +159,7 @@ Masterblend 4-18-38 Tomato Formula:
     Cu:        0.005
     Mo:        0.0001
 
-Leafy Greens:
+Hydroponics Europe Leafy Greens:
   macronutrients:
     N (NO3-): 9.486999999999999e-05
     N (NH4+): 8.48e-06
@@ -176,7 +176,7 @@ Leafy Greens:
     Cu:       2.65e-06
     Mo:       5.3e-08
 
-Fruit Bearing:
+Hydroponics Europe Fruit Bearing:
   macronutrients:
     N (NO3-): 0.00011276999999999999
     N (NH4+): 1.0079999999999998e-05
@@ -192,3 +192,21 @@ Fruit Bearing:
     Mn:       1.26e-06
     Cu:       3.15e-06
     Mo:       6.3e-08
+
+Hakaphos Basis 2:
+# https://www.duengerexperte.de/kakaphos-basis-2.html
+  macronutrients:
+    N (NO3-): 0.03
+    N (NH4+): 0.0
+    P:        0.01963920678203524
+    K:        0.1660300440575402
+    Mg:       0.02412167526796348
+    Ca:       0.0
+    S:        0.0
+  micronutrients:
+    Fe:       0.0015
+    Zn:       0.00015
+    B:        0.0001
+    Mn:       0.0005
+    Cu:       0.0002
+    Mo:       0.00001
