@@ -338,7 +338,12 @@ solution = Solution(
 
 solution.composition_target = leafy_greens.composition
 
-descent = optimization.gradient_descent(solution, iter_max=150, step_init=0.1, step_prediction=True)
+descent = optimization.gradient_descent(
+			solution,
+			iter_max=150,
+			step_init=0.1,
+			step_prediction=True
+			)
 
 Starting the gradient descent procedure...
   i.j            step              R     norm(grad)    norm(Pgrad)
