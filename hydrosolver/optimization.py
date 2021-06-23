@@ -35,8 +35,9 @@ def gradient_descent(
             while True:
                 print(f"{i:3}.{j:<2}{step:15.7e}", end='', flush=True)
 
-                # make a step in the negative gradient direction ond project
-                # the new extended formulation on the simplex
+                # make a step in the negative gradient direction
+                # project the trial extended formulation on the simples
+                # cut the last element off (alignment due to float arithmetics)
                 formulation_trial = project(
                         solution.x - step * solution.grad, mass)[:-1]
 
@@ -69,8 +70,7 @@ def gradient_descent(
     except KeyboardInterrupt:
         print('\nInterrupted by user...')
     except DescendLoopException:
-        print('\nThe descend procedure has looped since formulation reached '
-              'the boundary of the feasible set:\n'
+        print('\nThe descend procedure has looped:\n'
               'project(formulation_next) == formulation.')
     except DescendToleranceException:
         print('\nThe descend procedure was interrupted since\n'
