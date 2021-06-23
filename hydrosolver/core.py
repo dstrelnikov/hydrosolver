@@ -14,7 +14,7 @@ def gradient(A, b, x):
     return 2 * (A @ x - b).transpose() @ A
 
 def solve_lstsq(A, b):
-    return np.linalg.lstsq(A, b)[0]
+    return np.linalg.lstsq(A, b, rcond=None)[0]
 
 def norm(v):
     return np.linalg.norm(v)
