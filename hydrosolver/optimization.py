@@ -1,5 +1,6 @@
 import numpy as np
-from .core import project
+from .core import project_simplex as project
+from . import core
 
 
 class DescendLoopException(Exception):
@@ -12,8 +13,8 @@ class DescendToleranceException(Exception):
 def gradient_descent(
         solution,
         iter_max=100,
-        step_init=10**-2,
-        tolerance=10**-9,
+        step_init=10**-1,
+        tolerance=10**-10,
         sigma=10**-2,
         beta=.5,
         step_prediction=False
@@ -34,10 +35,11 @@ def gradient_descent(
             while True:
                 print(f"{i:3}.{j:<2}{step:15.7e}", end='', flush=True)
 
-                # make a step in the negative gradient direction ond project
-                # the new formulation on the feasible set
+                # make a step in the negative gradient direction
+                # project the trial extended formulation on the simples
+                # cut the last element off (alignment due to float arithmetics)
                 formulation_trial = project(
-                        solution.formulation - step * solution.grad, mass)
+                        solution.x - step * solution.grad, mass)[:-1]
 
                 if np.allclose(formulation_trial, solution.formulation):
                     raise DescendLoopException
@@ -68,8 +70,7 @@ def gradient_descent(
     except KeyboardInterrupt:
         print('\nInterrupted by user...')
     except DescendLoopException:
-        print('\nThe descend procedure has looped since formulation reached '
-              'the boundary of the feasible set:\n'
+        print('\nThe descend procedure has looped:\n'
               'project(formulation_next) == formulation.')
     except DescendToleranceException:
         print('\nThe descend procedure was interrupted since\n'
@@ -78,3 +79,7 @@ def gradient_descent(
     print('Terminating.')
 
     return descent
+
+
+def solve_lstsq(solution):
+    return solution.spawn(core.solve_lstsq(solution.A, solution.b)[:-1])

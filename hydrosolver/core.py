@@ -14,22 +14,13 @@ def gradient(A, b, x):
     return 2 * (A @ x - b).transpose() @ A
 
 def solve_lstsq(A, b):
-    return np.linalg.lstsq(A, b)[0]
+    return np.linalg.lstsq(A, b, rcond=None)[0]
 
 def norm(v):
     return np.linalg.norm(v)
 
 def norm2(v):
     return np.dot(v, v)
-
-def project(v, m):
-    '''Projects v onto the feasible set.'''
-
-    v_ = v.clip(0, m)
-    if v_.sum() > m:
-        return project_simplex(v_, m)
-    else:
-        return v_
 
 def project_simplex(v, m):
     '''Projects vector v∈R(n+1) to the simplex m*Δn.'''
