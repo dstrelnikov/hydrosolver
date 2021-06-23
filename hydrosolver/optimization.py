@@ -13,8 +13,8 @@ class DescendToleranceException(Exception):
 def gradient_descent(
         solution,
         iter_max=100,
-        step_init=10**-2,
-        tolerance=10**-9,
+        step_init=10**-1,
+        tolerance=10**-10,
         sigma=10**-2,
         beta=.5,
         step_prediction=False
