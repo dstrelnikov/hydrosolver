@@ -22,12 +22,13 @@ class Solution:
                 The fertilizers (compositions) to use.
 
     '''
+        formulation = np.array(formulation)
 
         if not len(fertilizers) == len(formulation):
             raise ValueError(
                 'The formulation does not match the number of fertilizers.')
 
-        if np.any(self.formulation < 0):
+        if np.any(formulation < 0):
             raise ValueError(
                 'The formulation contains negative values.')
 
@@ -37,7 +38,7 @@ class Solution:
 
         self.mass_total = mass_total
         self.water = water
-        self.formulation = np.array(formulation)
+        self.formulation = formulation
         self.fertilizers = fertilizers
 
 
@@ -54,7 +55,7 @@ class Solution:
                 tablefmt='simple',
                 )
 
-        return '\n\n'.join((table_solution, self.composition.__repr__()))
+        return '\n\n'.join((table_solution, self.composition.as_table_plain()))
 
     @cached_property
     def mass_water(self):
@@ -86,8 +87,7 @@ class Solution:
         '''Gives the resulting Composition object.'''
         return composition.Composition(
             name='Resulting composition',
-            macronutrients=self.vector[:len(composition.macronutrients_desc)],
-            micronutrients=self.vector[-len(composition.micronutrients_desc):],
+            vector=self.vector,
             )
 
     @cached_property
