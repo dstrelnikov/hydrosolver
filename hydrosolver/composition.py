@@ -21,6 +21,22 @@ micronutrients_desc = [
     'Mo',
 ]
 
+nutrients_stencil = [
+    'N (NO3-)',
+    'N (NH4+)',
+    'P',
+    'K',
+    'Mg',
+    'Ca',
+    'S',
+    'Fe',
+    'Zn',
+    'B',
+    'Mn',
+    'Cu',
+    'Mo',
+]
+
 
 def load_db(database_dict):
     compositions = {
@@ -30,27 +46,18 @@ def load_db(database_dict):
 
     return compositions
 
-def load(composition_dict):
-    '''Load composition from a dict.'''
-
-    composition = Composition()
-    composition.name, nutrients_dict = composition_dict.popitem()
-    composition.macronutrients = list(nutrients_dict['macronutrients'].values())
-    composition.micronutrients = list(nutrients_dict['micronutrients'].values())
-
-    return composition
 
 class Composition:
 
-    def __init__(
-            self,
-            macronutrients=np.zeros(len(macronutrients_desc)),
-            micronutrients=np.zeros(len(micronutrients_desc)),
-            name='',
-            ):
-        self.name = name
-        self.macronutrients = np.array(macronutrients)
-        self.micronutrients = np.array(micronutrients)
+    def __init__(self, composition_dict):
+        '''Load composition from a dict.'''
+
+        self.name, nutrients_dict = tuple(composition_dict.items())[0]
+        self.vector = np.zeros(len(nutrients_stencil))
+
+        for i, nutrient in enumerate(nutrients_stencil):
+            if nutrient in nutrients_dict:
+                self.vector[i] = nutrients_dict[nutrient]
 
     def __repr__(self):
         description = f'Composition: {self.name}'
@@ -98,29 +105,13 @@ class Composition:
 
         return Composition(macronutrients, micronutrients, name)
 
-    @property
-    def vector(self):
-        '''All the nutrients as a vector (for optimization).'''
-        return np.concatenate((self.macronutrients, self.micronutrients))
-
     def dump(self):
-        '''Represent composition as a dict.'''
+        '''Represent a composition as a dict.'''
 
-        macronutrients_dict = {
-                nutrient: float(amount)
-                for nutrient, amount
-                in zip(macronutrients_desc, self.macronutrients)
-                }
-        micronutrients_dict = {
-                nutrient: float(amount)
-                for nutrient, amount
-                in zip(micronutrients_desc, self.micronutrients)
-                }
-        composition_dict = {
-                self.name: {
-                    'macronutrients': macronutrients_dict,
-                    'micronutrients': micronutrients_dict,
-                    }
+        nutrients_dict = {
+                nutrient: value
+                for nutrient, value in zip(nutrients_stencil, self.vector)
+                if value != 0
                 }
 
-        return composition_dict
+        return {self.name: nutrients_dict}
