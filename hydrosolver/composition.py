@@ -46,18 +46,25 @@ def load_db(database_dict):
 
     return compositions
 
+def load( composition_dict):
+    '''Load composition from a dict.'''
+
+    name, nutrients_dict = tuple(composition_dict.items())[0]
+    vector = np.zeros(len(nutrients_stencil))
+
+    for i, nutrient in enumerate(nutrients_stencil):
+        if nutrient in nutrients_dict:
+            vector[i] = nutrients_dict[nutrient]
+
+    return Composition(name, vector)
+
 
 class Composition:
 
-    def __init__(self, composition_dict):
-        '''Load composition from a dict.'''
+    def __init__(self, name='', vector=np.zeros(len(nutrients_stencil))):
+        self.name = name
+        self.vector = vector
 
-        self.name, nutrients_dict = tuple(composition_dict.items())[0]
-        self.vector = np.zeros(len(nutrients_stencil))
-
-        for i, nutrient in enumerate(nutrients_stencil):
-            if nutrient in nutrients_dict:
-                self.vector[i] = nutrients_dict[nutrient]
 
     def __repr__(self):
 
