@@ -2,25 +2,6 @@ import numpy as np
 from tabulate import tabulate
 
 
-macronutrients_desc = [
-    'N (NO3-)',
-    'N (NH4+)',
-    'P',
-    'K',
-    'Mg',
-    'Ca',
-    'S',
-]
-
-micronutrients_desc = [
-    'Fe',
-    'Zn',
-    'B',
-    'Mn',
-    'Cu',
-    'Mo',
-]
-
 nutrients_stencil = [
     'N (NO3-)',
     'N (NH4+)',
