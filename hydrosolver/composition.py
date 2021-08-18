@@ -94,17 +94,15 @@ class Composition:
 
     def __add__(self, composition):
         name = f'{self.name} + {composition.name}'
-        macronutrients = .5 * (self.macronutrients + composition.macronutrients)
-        micronutrients = .5 * (self.micronutrients + composition.micronutrients)
+        vector = self.vector + composition.vector
 
-        return Composition(macronutrients, micronutrients, name)
+        return Composition(name, vector)
 
     def __rmul__(self, number):
         name = f'{number} * ({self.name})'
-        vector = self.macronutrients * number
-        micronutrients = self.micronutrients * number
+        vector = self.vector * number
 
-        return Composition(macronutrients, micronutrients, name)
+        return Composition(name, vector)
 
     def dump(self):
         '''Represent a composition as a dict.'''
