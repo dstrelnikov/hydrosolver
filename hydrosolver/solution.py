@@ -28,14 +28,6 @@ class Solution:
             raise ValueError(
                 'The formulation does not match the number of fertilizers.')
 
-        if np.any(formulation < 0):
-            raise ValueError(
-                'The formulation contains negative values.')
-
-        if formulation.sum() > mass_total:
-            raise ValueError(
-                'The mass of the fertilizers is greater than the total mass.')
-
         self.mass_total = mass_total
         self.water = water
         self.formulation = formulation
