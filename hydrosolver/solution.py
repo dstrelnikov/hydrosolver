@@ -33,8 +33,10 @@ class Solution:
         self.formulation = formulation
         self.fertilizers = fertilizers
 
-
     def __repr__(self):
+        return self.as_table_plain()
+
+    def as_table_plain(self):
         lines = [[fertilizer.name, amount, amount * 10**3]
                  for (fertilizer, amount)
                  in zip(self.fertilizers, self.formulation)]
