@@ -1,0 +1,35 @@
+Akvarin 3:
+# https://bhz.ru/catalog/akvarin/akvarin-3/
+  macronutrients:
+    N (NO3-):  0.03
+    N (NH4+):  0.0
+    P:         0.0480069499116417
+    K:         0.2905525771006954
+    Mg:        0.024121675267963476
+    Ca:        0.0
+    S:         0.09
+  micronutrients:
+    Fe:        0.00054
+    Zn:        0.00014
+    B:         0.0002
+    Mn:        0.00042
+    Cu:        0.0001
+    Mo:        0.00004
+
+Akvarin 12: 
+# https://bhz.ru/catalog/akvarin/akvarin-12/
+  macronutrients:
+    N (NO3-):  0.10
+    N (NH4+):  0.02
+    P:         0.05237121808542731
+    K:         0.2905525771006954
+    Mg:        0.006030418816990869
+    Ca:        0.0
+    S:         0.007
+  micronutrients:
+    Fe:        0.00054
+    Zn:        0.00014
+    B:         0.0002
+    Mn:        0.00042
+    Cu:        0.0001
+    Mo:        0.00004

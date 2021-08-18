@@ -1,0 +1,33 @@
+Water (Berlin): 
+  macronutrients:
+    N (NO3-):  0.00000078
+    N (NH4+):  0.0
+    P:         0.0
+    K:         0.000005
+    Mg:        0.0000109
+    Ca:        0.000107
+    S:         0.00003471863094122791
+  micronutrients:
+    Fe:        0.00000002
+    Zn:        0.
+    B:         0.00000000075
+    Mn:        0.
+    Cu:        0.
+    Mo:        0.
+
+Water (der Quelle Jessen): 
+  macronutrients:
+    N (NO3-):  0.00000078
+    N (NH4+):  0.0
+    P:         0.0
+    K:         0.0000059
+    Mg:        0.0000024
+    Ca:        0.00004
+    S:         0.000001435
+  micronutrients:
+    Fe:        0.
+    Zn:        0.
+    B:         0.
+    Mn:        0.
+    Cu:        0.
+    Mo:        0.

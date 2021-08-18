@@ -1,0 +1,36 @@
+Howard Resh composition (peppers):
+# the amount of Sulfur is adjusted
+  macronutrients:
+    N (NO3-):  0.000190
+    N (NH4+):  0.000018
+    P:         0.000040
+    K:         0.000340
+    Mg:        0.000050
+    Ca:        0.000170
+    S:         0.000060
+  micronutrients:
+    Fe:        0.000005
+    Zn:        0.00000033
+    B:         0.00000033
+    Mn:        0.00000055
+    Cu:        0.00000005
+    Mo:        0.00000005
+
+
+Howard Resh composition (debug):
+# the amount of Sulfur is adjusted
+  macronutrients:
+    N (NO3-):  0.000190
+    N (NH4+):  0.000018
+    P:         0.000040
+    K:         0.000340
+    Mg:        0.000050
+    Ca:        0.000170
+    S:         0.000060
+  micronutrients:
+    Fe:        0.0
+    Zn:        0.0
+    B:         0.0
+    Mn:        0.0
+    Cu:        0.0
+    Mo:        0.0
