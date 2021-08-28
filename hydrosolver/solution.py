@@ -26,7 +26,7 @@ class Solution:
 
         if not len(fertilizers) == len(formulation):
             raise ValueError(
-                'The formulation does not match the number of fertilizers.')
+                'The formulation is inconsistent with the number of fertilizers.')
 
         self.mass_total = mass_total
         self.water = water
@@ -148,7 +148,7 @@ class Solution:
     def Pgrad_norm2(self):
         return core.norm2(self.Pgrad)
 
-    def spawn(self, formulation_new):
+    def spawn(self, formulation_new=self.formulation):
         solution = Solution(
                 self.mass_total,
                 self.water,
