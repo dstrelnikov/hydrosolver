@@ -26,23 +26,48 @@ class Solution:
 
         if not len(fertilizers) == len(formulation):
             raise ValueError(
-                'The formulation does not match the number of fertilizers.')
-
-        if np.any(formulation < 0):
-            raise ValueError(
-                'The formulation contains negative values.')
-
-        if formulation.sum() > mass_total:
-            raise ValueError(
-                'The mass of the fertilizers is greater than the total mass.')
+                'The formulation is inconsistent with the number of fertilizers.')
 
         self.mass_total = mass_total
         self.water = water
         self.formulation = formulation
         self.fertilizers = fertilizers
 
-
     def __repr__(self):
+        return self.as_table_plain()
+
+    def __add__(self, other):
+        if self.water == other.water and self.fertilizers == other.fertilizers:
+            return Solution(
+                    mass_total = self.mass_total + other.mass_total,
+                    water = self.water,
+                    formulation = self.formulation + other.formulation,
+                    fertilizers = self.fertilizers,
+                )
+        else:
+            raise ArithmeticError(
+                'Only solutions of the same subtype can be added or subtracted.')
+
+    def __neg__(self):
+        return Solution(
+                mass_total = - self.mass_total,
+                water = self.water,
+                formulation = - self.formulation,
+                fertilizers = self.fertilizers,
+            )
+
+    def __sub__(self, other):
+        return self + (- other)
+
+    def __rmul__(self, number):
+        return Solution(
+                    mass_total = number * self.mass_total,
+                    water = self.water,
+                    formulation = number * self.formulation,
+                    fertilizers = self.fertilizers,
+                )
+
+    def as_table_plain(self):
         lines = [[fertilizer.name, amount, amount * 10**3]
                  for (fertilizer, amount)
                  in zip(self.fertilizers, self.formulation)]
@@ -123,7 +148,7 @@ class Solution:
     def Pgrad_norm2(self):
         return core.norm2(self.Pgrad)
 
-    def spawn(self, formulation_new):
+    def spawn(self, formulation_new=self.formulation):
         solution = Solution(
                 self.mass_total,
                 self.water,
