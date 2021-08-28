@@ -36,6 +36,37 @@ class Solution:
     def __repr__(self):
         return self.as_table_plain()
 
+    def __add__(self, other):
+        if self.water == other.water and self.fertilizers == other.fertilizers:
+            return Solution(
+                    mass_total = self.mass_total + other.mass_total,
+                    water = self.water,
+                    formulation = self.formulation + other.formulation,
+                    fertilizers = self.fertilizers,
+                )
+        else:
+            raise ArithmeticError(
+                'Only solutions of the same subtype can be added or subtracted.')
+
+    def __neg__(self):
+        return Solution(
+                mass_total = - self.mass_total,
+                water = self.water,
+                formulation = - self.formulation,
+                fertilizers = self.fertilizers,
+            )
+
+    def __sub__(self, other):
+        return self + (- other)
+
+    def __rmul__(self, number):
+        return Solution(
+                    mass_total = number * self.mass_total,
+                    water = self.water,
+                    formulation = number * self.formulation,
+                    fertilizers = self.fertilizers,
+                )
+
     def as_table_plain(self):
         lines = [[fertilizer.name, amount, amount * 10**3]
                  for (fertilizer, amount)
