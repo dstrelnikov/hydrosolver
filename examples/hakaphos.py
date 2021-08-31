@@ -1,6 +1,5 @@
 from hydrosolver.solution import Solution
 from hydrosolver.composition import Composition
-from hydrosolver import composition
 from hydrosolver import utils
 
 
@@ -8,10 +7,9 @@ pure = utils.load_file('compositions/pure.yaml')
 compo = utils.load_file('compositions/compo.yaml')
 chelates = utils.load_file('compositions/chelates.yaml')
 
-basis_2 = Solution(
+basis_2 = Solution.dissolve(
         150,
         Composition(name='RO water'),
-        [0.154, 0.145, 0.040, 0.004, 0.00017,  0.0002],
         [
             compo['Hakaphos Basis 2'],
             pure['Calcium nitrate tetrahydrate'],
@@ -19,13 +17,13 @@ basis_2 = Solution(
             chelates['Fe-EDTA 13.3%'],
             chelates['Zn-EDTA 15%'],
             pure['Boric acid'],
-        ]
+        ],
+        [0.154, 0.145, 0.040, 0.004, 0.00017,  0.0002],
     )
 
-basis_3 = Solution(
+basis_3 = Solution.dissolve(
         150,
         Composition(name='RO water'),
-        [0.154, 0.145, 0.040, 0.004, 0.00017,  0.0002],
         [
             compo['Hakaphos Basis 3'],
             pure['Calcium nitrate tetrahydrate'],
@@ -33,5 +31,6 @@ basis_3 = Solution(
             chelates['Fe-EDTA 13.3%'],
             chelates['Zn-EDTA 15%'],
             pure['Boric acid'],
-        ]
+        ],
+        [0.154, 0.145, 0.040, 0.004, 0.00017,  0.0002],
     )
