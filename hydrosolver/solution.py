@@ -8,71 +8,68 @@ from . import core
 
 
 class Solution:
-    def __init__(self, mass_total, water, formulation, fertilizers):
+    def __init__(self, compositions, formulation):
         '''Create a solution.
 
         Parameters:
-            mass_total: float
-                The total mass of the solutions.
+            compositions: [Composition], (n,)
+                The compositions to use.
+            formulation: np.array(float), (n,)
+                Masses of the compositions (including the water) in kg.
+
+        '''
+
+        if not len(compositions) == len(formulation):
+            raise ValueError(
+                'The formulation is inconsistent with the number of compositions.')
+
+        self.compositions = compositions
+        self.formulation = np.array(formulation)
+
+    @classmethod
+    def dissolve(cls, mass, water, formulation_, compositions_):
+        '''Dissolve compositions in water.
+
+        Parameters:
+            mass: float, >= 0
+                The total mass of the solution.
             water: Composition
                 The composition of the water used.
-            formulation: np.array(float), (n,)
-                Masses of the compositions (excluding water) in kg.
-            fertilizers: [Composition], (n,)
-                The fertilizers (compositions) to use.
-
-    '''
-        formulation = np.array(formulation)
-
-        if not len(fertilizers) == len(formulation):
-            raise ValueError(
-                'The formulation is inconsistent with the number of fertilizers.')
-
-        self.mass_total = mass_total
-        self.water = water
-        self.formulation = formulation
-        self.fertilizers = fertilizers
-
-    def __repr__(self):
-        return self.as_table_plain()
+            formulation_: np.array(float), (n,)
+                Masses of the compositions (excluding the water) in kg.
+            compositions_: [Composition], (n,)
+                The compositions to dissolve in the water.
+        '''
+        compositions = compositions_ + [water]
+        formulation = np.concatenate((formulation_, [mass - sum(formulation_)]))
+        return cls(compositions, formulation)
 
     def __add__(self, other):
-        if self.water == other.water and self.fertilizers == other.fertilizers:
-            return Solution(
-                    mass_total = self.mass_total + other.mass_total,
-                    water = self.water,
-                    formulation = self.formulation + other.formulation,
-                    fertilizers = self.fertilizers,
-                )
+        if self.compositions == other.compositions:
+            return self.spawn(self.formulation + other.formulation)
         else:
             raise ArithmeticError(
-                'Only solutions of the same subtype can be added or subtracted.')
+                'Only solutions of the same compositions can be added or subtracted.')
 
     def __neg__(self):
-        return Solution(
-                mass_total = - self.mass_total,
-                water = self.water,
-                formulation = - self.formulation,
-                fertilizers = self.fertilizers,
-            )
+        return self.spawn(-self.formulation)
 
     def __sub__(self, other):
         return self + (- other)
 
     def __rmul__(self, number):
-        return Solution(
-                    mass_total = number * self.mass_total,
-                    water = self.water,
-                    formulation = number * self.formulation,
-                    fertilizers = self.fertilizers,
-                )
+        return self.spawn(number * self.formulation)
+
+    def __repr__(self):
+        return self.as_table_plain()
 
     def as_table_plain(self):
-        lines = [[fertilizer.name, amount, amount * 10**3]
-                 for (fertilizer, amount)
-                 in zip(self.fertilizers, self.formulation)]
-        lines.append([self.water.name, self.mass_water, self.mass_water * 10**3])
-        lines.append(['Total:', self.mass_total, self.mass_total * 10**3])
+        lines = [
+                    [composition.name, amount, amount * 10**3]
+                    for (composition, amount)
+                    in zip(self.compositions, self.formulation)
+                ]
+        lines.append(['Total:', self.mass, self.mass * 10**3])
 
         table_solution = tabulate(
                 lines,
@@ -80,82 +77,27 @@ class Solution:
                 tablefmt='simple',
                 )
 
-        return '\n\n'.join((table_solution, self.composition.as_table_plain()))
+        return '\n\n'.join((table_solution, self.composition.table()))
 
-    @cached_property
-    def mass_water(self):
-        return self.mass_total - sum(self.formulation)
+    @property
+    def mass(self):
+        return self.formulation.sum()
 
-    @cached_property
-    def x(self):
-        return np.concatenate((self.formulation, [self.mass_water]))
-
-    @cached_property
+    @property
     def A(self):
         '''The LHS matrix of the linear system.'''
-        return np.stack(
-                [f.vector for f in self.fertilizers] + [self.water.vector]
-                ).transpose()
+        return np.stack([c.vector for c in self.compositions], axis=-1)
 
-    @cached_property
-    def b(self):
-        '''The RHS vector of the linear system.'''
-        return self.mass_total * self.composition_target.vector
-
-    @cached_property
-    def vector(self):
-        '''Gives the resulting composition vector.'''
-        return self.A @ self.x / self.mass_total
-
-    @cached_property
+    @property
     def composition(self):
         '''Gives the resulting Composition object.'''
-        return composition.Composition(
-            name='Resulting composition',
-            vector=self.vector,
-            )
-
-    @cached_property
-    def residual(self):
-        return core.residual(self.A, self.b, self.x)
-
-    @cached_property
-    def R(self):
-        return core.norm2(self.residual)
-
-    @cached_property
-    def grad(self):
-        return core.gradient(self.A, self.b, self.x)
-
-    @cached_property
-    def grad_norm(self):
-        return core.norm(self.grad)
-
-    @cached_property
-    def grad_norm2(self):
-        return core.norm2(self.grad)
-
-    # dummy projected gradient
-    @cached_property
-    def Pgrad(self):
-        return self.grad
-
-    @cached_property
-    def Pgrad_norm(self):
-        return core.norm(self.Pgrad)
-
-    @cached_property
-    def Pgrad_norm2(self):
-        return core.norm2(self.Pgrad)
-
-    def spawn(self, formulation_new=self.formulation):
-        solution = Solution(
-                self.mass_total,
-                self.water,
-                formulation_new,
-                self.fertilizers
+        if self.mass == 0:
+            return composition.Composition(name='Resulting composition')
+        else:
+            return composition.Composition(
+                name='Resulting composition',
+                vector=(self.A @ self.formulation / self.mass),
                 )
 
-        solution.composition_target = self.composition_target
-
-        return solution
+    def spawn(self, formulation_new):
+        return Solution(self.compositions, formulation_new)
