@@ -27,7 +27,7 @@ class Solution:
         self.formulation = np.array(formulation)
 
     @classmethod
-    def dissolve(cls, mass, water, formulation_, compositions_):
+    def dissolve(cls, mass, water, compositions_, formulation_):
         '''Dissolve compositions in water.
 
         Parameters:
@@ -35,10 +35,10 @@ class Solution:
                 The total mass of the solution.
             water: Composition
                 The composition of the water used.
-            formulation_: np.array(float), (n,)
-                Masses of the compositions (excluding the water) in kg.
             compositions_: [Composition], (n,)
                 The compositions to dissolve in the water.
+            formulation_: np.array(float), (n,)
+                Masses of the compositions (excluding the water) in kg.
         '''
         compositions = compositions_ + [water]
         formulation = np.concatenate((formulation_, [mass - sum(formulation_)]))
