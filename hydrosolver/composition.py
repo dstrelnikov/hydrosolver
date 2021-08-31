@@ -27,7 +27,7 @@ def load_compositions(database_dict):
 
     return compositions
 
-def load( composition_dict):
+def load(composition_dict):
     '''Creates a new Composition from a dict.'''
 
     name, nutrients_dict = tuple(composition_dict.items())[0]
@@ -52,17 +52,36 @@ class Composition:
 
         return Composition(name, vector)
 
+    def __neg__(self):
+        return Composition(f'- ({self.name})', - self.vector)
+
+    def __sub__(self, composition):
+        name = f'{self.name} - {composition.name}'
+        vector = self.vector - composition.vector
+
+        return Composition(name, vector)
+
+    def __eq__(self, other):
+        return np.all(self.vector == other.vector)
+
     def __repr__(self):
-        return self.as_table_plain()
+        return self.table()
 
     def __str__(self):
-        return self.as_string_plain()
+        return f'{self.name} :: ' + ', '.join(
+                    f'{nutrient}: {amount_ppm:.2f}'
+                    for nutrient, amount_ppm
+                    in zip(nutrients_stencil, 10**6 * self.vector)
+                    )
 
     def __rmul__(self, number):
         name = f'{number} * ({self.name})'
         vector = self.vector * number
 
         return Composition(name, vector)
+
+    def __len__(self):
+        return len(self.vector)
 
     def dump(self):
         '''Dumps a Composition into a dict.'''
@@ -75,28 +94,33 @@ class Composition:
 
         return {self.name: nutrients_dict}
 
-    def as_table_plain(self):
-
+    def table(self, sparse=True, ref=None, tablefmt='simple'):
         description = f'Composition: {self.name}'
 
-        table = tabulate(
-                [
-                    (nutrient, value, value * 10**6)
-                    for (nutrient, value)
-                    in zip(nutrients_stencil, self.vector)
-                    if value != 0
-                ],
-                headers=['Nutrient', 'Ratio', 'Amount mg/kg'],
-                tablefmt='simple',
-                )
+        nutrients = np.array(nutrients_stencil)
+        vector = self.vector
+
+        if ref is not None:
+            vector_ref = ref.vector
+        else:
+            vector_ref = np.zeros(len(nutrients_stencil))
+
+        if sparse:
+            mask_nonzero = (vector != 0) | (vector_ref != 0)
+            nutrients = nutrients[mask_nonzero]
+            vector = vector[mask_nonzero]
+            vector_ref = vector_ref[mask_nonzero]
+
+        table_dict = {
+                'Nutrient': nutrients,
+                'Ratio': vector,
+                'Amount mg/kg': 10**6 * vector,
+                }
+
+        if ref is not None:
+            description += f'\nReference: {ref.name}'
+            table_dict['Diff mg/kg'] = 10**6 * (vector - vector_ref)
+
+        table = tabulate(table_dict, headers='keys', tablefmt=tablefmt)
 
         return '\n\n'.join((description, table))
-
-    def as_string_plain(self):
-        nutrients_list = (
-                f'{desc}: {value}'
-                for (desc, value) in zip(nutrients_stencil, self.vector)
-                if value != 0
-                )
-
-        return ' :: '.join((self.name, ', '.join(nutrients_list)))
