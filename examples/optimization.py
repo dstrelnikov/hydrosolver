@@ -2,7 +2,6 @@ import numpy as np
 
 from hydrosolver.solution import Solution
 from hydrosolver.composition import Composition
-from hydrosolver import composition
 from hydrosolver import optimization
 from hydrosolver import utils
 
@@ -28,7 +27,6 @@ solution_init = Solution.dissolve(
         150,
         Composition(name='RO water'),
         compositions,
-        np.zeros(len(compositions)),
     )
 
 solution_optimal, _ = optimization.gradient_descent(

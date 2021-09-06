@@ -19,7 +19,7 @@ leafy_greens = Solution.dissolve(
         [0.0053, 0.0053, 0.00265],
     )
 
-frut_bearing = Solution.dissolve(
+fruit_bearing = Solution.dissolve(
         10,
         Composition(name='RO water'),
         [
