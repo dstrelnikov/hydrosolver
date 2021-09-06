@@ -20,6 +20,17 @@ Monopotassium phosphate:
   K:         0.2873
 
 
+Monoammonium phosphate:
+# Ammonium dihydrogen phosphate
+  N (NH4+):  0.12177
+  P:         0.26928
+
+
+Ammonium sulfate:
+  N (NH4+):  0.21200
+  S:         0.24269
+
+
 Potassium nitrate:
   N (NO3-):  0.1385
   K:         0.3867
@@ -44,3 +55,7 @@ Ammonium nitrate:
 
 Boric acid: 
   B:         0.1748
+
+
+Potassium hydroxide:
+  K:         0.69687
