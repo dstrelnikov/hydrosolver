@@ -19,32 +19,24 @@ nutrients_stencil = [
 ]
 
 
-def load_compositions(database_dict):
-    compositions = {
-            name: load({name: nutrients})
-            for name, nutrients in database_dict.items()
-            }
-
-    return compositions
-
-def load(composition_dict):
-    '''Creates a new Composition from a dict.'''
-
-    name, nutrients_dict = tuple(composition_dict.items())[0]
-    vector = np.zeros(len(nutrients_stencil))
-
-    for i, nutrient in enumerate(nutrients_stencil):
-        if nutrient in nutrients_dict:
-            vector[i] = nutrients_dict[nutrient]
-
-    return Composition(name, vector)
-
-
 class Composition:
 
     def __init__(self, name='', vector=np.zeros(len(nutrients_stencil))):
         self.name = name
         self.vector = vector
+
+    @classmethod
+    def from_dict(cls, composition_dict):
+        '''Creates a new Composition from a dict.'''
+
+        name, nutrients_dict = tuple(composition_dict.items())[0]
+        vector = np.zeros(len(nutrients_stencil))
+
+        for i, nutrient in enumerate(nutrients_stencil):
+            if nutrient in nutrients_dict:
+                vector[i] = nutrients_dict[nutrient]
+
+        return cls(name, vector)
 
     def __add__(self, composition):
         name = f'{self.name} + {composition.name}'

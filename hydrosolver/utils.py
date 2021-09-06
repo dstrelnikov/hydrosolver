@@ -1,8 +1,13 @@
 import yaml
-from .composition import load_compositions
+from .composition import Composition
 
 def load_file(filename):
     with open(filename) as file:
-        compositions_dict = load_compositions(yaml.safe_load(file))
+        database_dict = yaml.safe_load(file)
 
-    return compositions_dict
+    compositions = {
+            name: Composition.from_dict({name: nutrients})
+            for name, nutrients in database_dict.items()
+            }
+
+    return compositions
