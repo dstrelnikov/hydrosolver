@@ -113,4 +113,61 @@ class Solution:
                 Masses of the compositions (including the water) in kg.
 
         '''
-        return Solution(self.compositions, formulation_new)
+        return Solution(self.compositions.copy(), formulation_new)
+
+    def copy(self):
+        return self.spawn(self.formulation.copy())
+
+    def add(self, composition, amount, index=-1, align=True):
+        '''Adds the given composition in the given amount to the solution.
+
+        If the given composition already exist in the solution then its amount
+        will be increased by the given amount.
+        Otherwise the composition will be inserted.
+
+        Parameters:
+            composition: Composition
+                The composition to add to the solution.
+            amount:
+                The amount in which the given composition will be added.
+            index: int, default=-1
+                Position to insert the composition.
+            align: bool, default: True
+                Whether the total mass of the solution will be compensated by
+                the last composition (typically water).
+
+        '''
+
+        if composition in self.compositions:
+            self.formulation[self.compositions.index(composition)] += amount
+        else:
+            self.compositions.insert(index, composition)
+            self.formulation = np.concatenate(
+                (self.formulation[:index], [amount], self.formulation[index:])
+            )
+
+        if align:
+            self.align(self.mass - amount)
+
+    def align(self, mass, index=-1):
+        '''Aligns the total mass of the solution by the amount of composition
+        at the given index.
+
+        Parameters:
+            mass: float
+                Desired total mass of the solution after alignment.
+            index: int, default: -1
+                The index of the composition which will be used for alignment.
+
+        '''
+        self.formulation[index] += mass - self.mass
+
+    def merge(self, other):
+        if self.compositions == other.compositions:
+            return self + other
+
+        solution = self.copy()
+        for composition, amount in zip(other.compositions, other.formulation):
+            solution.add(composition, amount, align=False)
+
+        return solution
