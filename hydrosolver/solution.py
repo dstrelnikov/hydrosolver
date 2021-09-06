@@ -91,7 +91,7 @@ class Solution:
 
     @property
     def A(self):
-        '''The LHS matrix of the linear system.'''
+        '''Computes the LHS matrix of the linear system.'''
         return np.stack([c.vector for c in self.compositions], axis=-1)
 
     @property
@@ -106,4 +106,11 @@ class Solution:
                 )
 
     def spawn(self, formulation_new):
+        '''Spawns a new Solution with the same list of compositions.
+
+        Parameters:
+            formulation_new: np.array(float), (n,)
+                Masses of the compositions (including the water) in kg.
+
+        '''
         return Solution(self.compositions, formulation_new)
