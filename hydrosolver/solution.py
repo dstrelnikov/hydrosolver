@@ -1,10 +1,7 @@
-from functools import cached_property
-
 import numpy as np
 from tabulate import tabulate
 
-from . import composition
-from . import core
+from .composition import Composition
 
 
 class Solution:
@@ -98,9 +95,9 @@ class Solution:
     def composition(self):
         '''Gives the resulting Composition object.'''
         if self.mass == 0:
-            return composition.Composition(name='Resulting composition')
+            return Composition(name='Resulting composition')
         else:
-            return composition.Composition(
+            return Composition(
                 name='Resulting composition',
                 vector=(self.A @ self.formulation / self.mass),
                 )
