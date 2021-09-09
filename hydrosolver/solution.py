@@ -160,6 +160,11 @@ class Solution:
         self.formulation[index] += mass - self.mass
 
     def merge(self, other):
+        '''Creates a new solution by merging another solution into the current
+        solution.
+
+        '''
+
         if self.compositions == other.compositions:
             return self + other
 
