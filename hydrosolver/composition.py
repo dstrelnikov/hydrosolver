@@ -22,8 +22,19 @@ nutrients_stencil = [
 class Composition:
 
     def __init__(self, name='', vector=np.zeros(len(nutrients_stencil))):
+        '''Creates a new composition.
+
+        Parameters:
+            name: string, default=''
+                A human-readable name for the composition.
+            vector: [float]
+                A list or a numpy array containing relative amounts of each
+                nunitrient in the composition. The length of this vector must
+                coincide with the length of composition.nutrients_stencil.
+
+        '''
         self.name = name
-        self.vector = vector
+        self.vector = np.array(vector)
 
     @classmethod
     def from_dict(cls, composition_dict):
@@ -76,7 +87,7 @@ class Composition:
         return len(self.vector)
 
     def dump(self):
-        '''Dumps a Composition into a dict.'''
+        '''Returns a dict representation for the given composition.'''
 
         nutrients_dict = {
                 nutrient: value
