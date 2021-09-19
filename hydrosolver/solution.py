@@ -60,7 +60,7 @@ class Solution:
     def __sub__(self, other):
         return self + (- other)
 
-    def __rmul__(self, number):
+    def __mul__(self, number):
         return self.spawn(number * self.formulation)
 
     def __repr__(self):
