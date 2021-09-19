@@ -44,7 +44,11 @@ Such solutions may be added and scaled in the usual way.
 
 There are also operations (for instance, `add` and `merge`) which take their results in subspaces of higher dimensions.
 
+
+## Documentations
+
+The documentation is provided in the `docs/` directory.
 Hydrosolver's functions and classes are reasonably documented.
-Whenever in doubt, use help() in Python's interpreter to get more information.
+Whenever in doubt, use `help()` in Python's interpreter to get more information.
 
 Several hints for a quick-start are provided in the `examples/` directory.
