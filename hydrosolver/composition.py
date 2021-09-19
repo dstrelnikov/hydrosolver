@@ -86,11 +86,11 @@ class Composition:
     def __len__(self):
         return len(self.vector)
 
-    def dump(self):
+    def as_dict(self):
         '''Returns a dict representation for the given composition.'''
 
         nutrients_dict = {
-                nutrient: value
+                nutrient: float(value)
                 for nutrient, value in zip(nutrients_stencil, self.vector)
                 if value != 0
                 }
