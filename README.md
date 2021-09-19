@@ -1,9 +1,16 @@
 hydrosolver
 ===========
 
-Optimization driven hydroponic nutrient calculator and a DSL.
+Optimization driven hydroponic nutrient calculator and a domain-specific language.
 
 License: [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
+
+
+## What is it?
+
+Hydrosolver is a Python module implementing a domain-specific language for operations with hydroponic nutrient solutions.
+It also features mathematical optimization tools helping to mix the most suitable solution using only available ingredients.
+
 
 ## Why?
 
@@ -18,10 +25,26 @@ If you feel more comfortable in Python REPL and a text editor than in a sophisti
 
 
 ## How to use it?
+
 Hydrosolver introduces two main entities: `Composition` and `Solution`. 
 
-`Composition` is an arbitrary substance which can contain some of the nutrients considered for hydroponic plant growing. It will mostly represent water, some salt or a complex fertilizer.
+`Composition` is an arbitrary substance which can contain some of the nutrients which are usually considered in hydroponic plant growing.
+It will mostly represent the water you use, a salt or a complex fertilizer.
+You can define a composition on the go or load one from a file.
 
-`Solution` is a mix of `Composition`'s in given amounts. Normally, one or more compositions constituting the solution must be water. However, there is no issue with creating dry "solutions".
+Compositions are internally represented as vectors (see `composition.nutrients_stencil`). Therefore they generate a vector space, i.e. compositions may be added and scaled.
 
-Please find more details in the `examples/` directory.
+`Solution` is a mix of a few `Composition`s in given amounts.
+Normally, one or more compositions constituting the solution must be water.
+However, in hydrosolver there is no artificial limitation preventing you from creating dry "solutions".
+
+Similarly to the vector space of compositions, there is an infinite-dimensional vector space of solutions.
+Solutions defined in the same basis (i.e. consisting of the same compositions listed in the same order) generate a finite-dimensional subspace.
+Such solutions may be added and scaled in the usual way.
+
+There are also operations (for instance, `add` and `merge`) which take their results in subspaces of higher dimensions.
+
+Hydrosolver's functions and classes are reasonably documented.
+Whenever in doubt, use help() in Python's interpreter to get more information.
+
+Several hints for a quick-start are provided in the `examples/` directory.
