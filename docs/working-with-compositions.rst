@@ -1,7 +1,7 @@
 Working with compositions
 =========================
 
-The simplest identity in hydrosolver is `Composition`.
+The simplest entity in hydrosolver is ``Composition``.
 Compositions can be defined on the go or loaded from a file, added and scaled.
 
 
@@ -13,7 +13,7 @@ The simplest composition which does not contain any of the nutrient elements of 
 
 The monopotassium phosphate can be defied as follows::
 
-    from hydrosolver import Composition
+    from hydrosolver.composition import Composition
 
     MKP = Composition(
         name='Monopotassium phosphate',

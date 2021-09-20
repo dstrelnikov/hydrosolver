@@ -6,3 +6,4 @@ hydrosolver documentation
    :caption: Contents:
 
    working-with-compositions
+   working-with-solutions
