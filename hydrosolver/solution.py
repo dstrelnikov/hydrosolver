@@ -61,7 +61,11 @@ class Solution:
         return self + (- other)
 
     def __mul__(self, number):
+        return number * self
+
+    def __rmul__(self, number):
         return self.spawn(number * self.formulation)
+
 
     def __repr__(self):
         return self.as_table_plain()
