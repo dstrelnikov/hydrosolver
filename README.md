@@ -1,7 +1,7 @@
 hydrosolver
 ===========
 
-[![Documentation Status](https://readthedocs.org/projects/hydrosolver/badge/?version=sphinx-docs)](https://hydrosolver.readthedocs.io/en/sphinx-docs/?badge=sphinx-docs)
+[![Documentation Status](https://readthedocs.org/projects/hydrosolver/badge/?version=latest)](https://hydrosolver.readthedocs.io/en/latest/?badge=latest)
 
 
 Optimization driven hydroponic nutrient calculator and a domain-specific language.
@@ -50,8 +50,6 @@ There are also operations (for instance, `add` and `merge`) which take their res
 
 ## Documentations
 
-The documentation is provided in the `docs/` directory.
-Hydrosolver's functions and classes are reasonably documented.
-Whenever in doubt, use `help()` in Python's interpreter to get more information.
+The online documentation is available on [Read the Docs](https://hydrosolver.readthedocs.io/).
 
 Several hints for a quick-start are provided in the `examples/` directory.
