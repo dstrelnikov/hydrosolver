@@ -30,7 +30,7 @@ Here ``vector`` follows the structure of `composition.nutrients_stencil`.
 Let us check the result.
 
 It is hard to not notice that this kind of definition is cumbersome and can be barely used by humans.
-Therefore class ``Composition`` contains an alternative constructor ``from_dict``, so the same result could be achieved in the following way:
+Therefore class ``Composition`` contains an alternative constructor ``Composition.from_dict()``, so the same result could be achieved in the following way:
 
 >>> MKP = Composition.from_dict(
 ...     {'Monopotassium phosphate': {'P': 0.2276, 'K': 0.2873}}
