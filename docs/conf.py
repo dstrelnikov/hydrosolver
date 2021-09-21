@@ -5,3 +5,7 @@ author = 'Dmytro Strelnikov'
 exclude_patterns = [
     '_build',
 ]
+
+extensions = [
+    'sphinx.ext.doctest',
+]
