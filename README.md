@@ -1,6 +1,9 @@
 hydrosolver
 ===========
 
+[![Documentation Status](https://readthedocs.org/projects/hydrosolver/badge/?version=sphinx-docs)](https://hydrosolver.readthedocs.io/en/sphinx-docs/?badge=sphinx-docs)
+
+
 Optimization driven hydroponic nutrient calculator and a domain-specific language.
 
 License: [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
