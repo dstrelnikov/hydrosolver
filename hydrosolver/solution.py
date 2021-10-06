@@ -59,6 +59,14 @@ class Solution:
             raise ArithmeticError(
                 'Only solutions of the same compositions can be added or subtracted.')
 
+    def __iadd__(self, other):
+        if self.compositions == other.compositions:
+            self.formulation += other.formulation
+            return self
+        else:
+            raise ArithmeticError(
+                'Only solutions of the same compositions can be added or subtracted.')
+
     def __neg__(self):
         return self.spawn(-self.formulation)
 
@@ -71,6 +79,9 @@ class Solution:
     def __rmul__(self, number):
         return self.spawn(number * self.formulation)
 
+    def __imul__(self, number):
+        self.formulation *= number
+        return self
 
     def __repr__(self):
         return self.as_table_plain()
