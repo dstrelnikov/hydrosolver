@@ -1,24 +1,29 @@
 import numpy as np
 from tabulate import tabulate
+from typing import List
 
 from .composition import Composition
 
 
 class Solution:
     def __init__(self, compositions, formulation):
-        '''Create a solution.
+        '''Creates a solution.
 
         Parameters:
-            compositions: [Composition], (n,)
+            compositions ([Composition]):
                 The compositions to use.
-            formulation: np.array(float), (n,)
+            formulation (array_like(float)):
                 Masses of the compositions (including the water) in kg.
+
+        Raises:
+            ValueError:
+                If the lengths of compositions and formulation do not match.
 
         '''
 
         if not len(compositions) == len(formulation):
             raise ValueError(
-                'The formulation is inconsistent with the number of compositions.')
+                'The compositions length does not match the formulation length.')
 
         self.compositions = compositions
         self.formulation = np.array(formulation)
@@ -28,14 +33,14 @@ class Solution:
         '''Creates a new Solution by dissolving the given compositions in water.
 
         Parameters:
-            mass: float, >= 0
+            mass (float):
                 The total mass of the solution in kg.
-            water: Composition
-                The composition of the water used.
-            compositions_: [Composition], (n-1,)
+            water (Composition):
+                The composition of the water used for dissolving.
+            compositions_ [Composition]:
                 Truncated list of compositions, i.e. the compositions to
                 dissolve in the water.
-            formulation_: np.array(float), (n-1,)
+            formulation_ (array_like(float)):
                 Truncated array of amounts, i.e. the masses of the compositions
                 (excluding the water) in kg.
 
@@ -110,7 +115,7 @@ class Solution:
         '''Spawns a new Solution with the same list of compositions.
 
         Parameters:
-            formulation_new: np.array(float), (n,)
+            formulation_new (np.array(float)):
                 Masses of the compositions (including the water) in kg.
 
         '''
@@ -127,13 +132,13 @@ class Solution:
         Otherwise the composition will be inserted.
 
         Parameters:
-            composition: Composition
+            composition (Composition):
                 The composition to add to the solution.
-            amount:
+            amount (float):
                 The amount in which the given composition will be added.
-            index: int, default=-1
+            index (int):
                 Position to insert the composition.
-            align: bool, default: True
+            align (bool):
                 Whether the total mass of the solution will be compensated by
                 the last composition (typically water).
 
@@ -155,9 +160,9 @@ class Solution:
         at the given index.
 
         Parameters:
-            mass: float
+            mass (float):
                 Desired total mass of the solution after alignment.
-            index: int, default: -1
+            index (int):
                 The index of the composition which will be used for alignment.
 
         '''
