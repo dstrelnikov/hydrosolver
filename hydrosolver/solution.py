@@ -1,6 +1,5 @@
 import numpy as np
 from tabulate import tabulate
-from typing import List
 
 from .composition import Composition
 
