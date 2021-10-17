@@ -6,7 +6,55 @@ hydrosolver
 
 Optimization driven hydroponic nutrient calculator and a domain-specific language.
 
-License: [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
+**Author:** Dmytro Strelnikov  
+**License:** [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html)
+
+---
+
+Enjoy the power of mathematical optimization:
+
+```python
+>>> MKP = Composition.from_dict(
+... {'Monopotassium phosphate': {'P': 0.2276, 'K': 0.2873}}
+... )
+>>> MS = Composition.from_dict(
+... {'Magnesium sulfate heptahydrate': {'Mg': 0.0986, 'S': 0.1301}}
+... )
+>>> CaN = Composition.from_dict(
+... {'Calcium nitrate tetrahydrate': {'N (NO3-)': 0.1186, 'Ca': 0.1697}}
+... )
+>>> composition_target = Composition.from_dict(
+... {'Target composition': {
+...     'N (NO3-)': 0.000120, 'P': 0.000040, 'K': 0.000055,
+...     'Mg': 0.000100, 'Ca': 0.000170, 'S': 0.000130,
+...     }
+... }
+... )
+>>> solution_init = Solution.dissolve(
+...     100,
+...     Composition(name='RO water'),
+...     [CaN, MS, MKP],
+... )
+>>> solution_optimal = optimize(solution_init, composition_target)
+Composition                       Amount in kg    Amount in g
+------------------------------  --------------  -------------
+Calcium nitrate tetrahydrate         0.100507        100.507
+Magnesium sulfate heptahydrate       0.10047         100.47
+Monopotassium phosphate              0.0185388        18.5388
+RO water                            99.7805        99780.5
+Total:                             100            100000
+
+Composition: Resulting composition
+
+Nutrient          Ratio    Amount mg/kg
+----------  -----------  --------------
+N (NO3-)    0.000119201        119.201
+P           4.21942e-05         42.1942
+K           5.32619e-05         53.2619
+Mg          9.90635e-05         99.0635
+Ca          0.00017056         170.56
+S           0.000130712        130.712
+```
 
 
 ## What is it?
