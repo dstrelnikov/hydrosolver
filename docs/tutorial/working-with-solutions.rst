@@ -208,3 +208,33 @@ P           0.00013464         134.64
 Mg          4.93e-05            49.3
 Ca          0.0001697          169.7
 S           6.505e-05           65.05
+
+
+Correcting solutions
+--------------------
+
+Adjusting the pH level
+^^^^^^^^^^^^^^^^^^^^^^
+
+It is a common task to adjust the pH level of an existing nutrient solution by adding some accid (typically either nitric acid or phosphoric acid) or some base (typically potassium hydroxide). For this purpose one needs to weight the pH corrector and add it to the solution:
+
+>>> solution_ms = Solution.dissolve(1, water, [MS], [0.002])
+>>> KOH_94 = 0.94 * Composition.from_dict(
+...     {'Potassium hydroxide': {'K': 0.69687}}
+...     )
+>>> solution_ms.add(KOH_94, 0.000120)
+>>> solution_ms
+Composition                       Amount in kg    Amount in g
+------------------------------  --------------  -------------
+Magnesium sulfate heptahydrate         0.002             2
+0.94 * (Potassium hydroxide)           0.00012           0.12
+Pure water                             0.99788         997.88
+Total:                                 1              1000
+<BLANKLINE>
+Composition: Resulting composition
+<BLANKLINE>
+Nutrient          Ratio    Amount mg/kg
+----------  -----------  --------------
+K           7.86069e-05         78.6069
+Mg          0.0001972          197.2
+S           0.0002602          260.2

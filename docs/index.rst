@@ -3,7 +3,8 @@ hydrosolver documentation
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Tutorial:
 
-   working-with-compositions
-   working-with-solutions
+   tutorial/working-with-compositions
+   tutorial/working-with-solutions
+   tutorial/optimizing-solutions
