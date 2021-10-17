@@ -1,13 +1,10 @@
 from hydrosolver.solution import Solution
 from hydrosolver.composition import Composition
+from hydrosolver.database import pure, compo, chelates
 from hydrosolver import utils
 
 
-pure = utils.load_file('compositions/pure.yaml')
-compo = utils.load_file('compositions/compo.yaml')
-chelates = utils.load_file('compositions/chelates.yaml')
-
-basis_2 = Solution.dissolve(
+solution_basis_2 = Solution.dissolve(
         150,
         Composition(name='RO water'),
         [
@@ -21,7 +18,7 @@ basis_2 = Solution.dissolve(
         [0.154, 0.145, 0.040, 0.004, 0.00017,  0.0002],
     )
 
-basis_3 = Solution.dissolve(
+solution_basis_3 = Solution.dissolve(
         150,
         Composition(name='RO water'),
         [

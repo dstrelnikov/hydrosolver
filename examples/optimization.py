@@ -3,16 +3,11 @@ import numpy as np
 from hydrosolver.solution import Solution
 from hydrosolver.composition import Composition
 from hydrosolver.optimization import optimize
+from hydrosolver.database import pure, compo, chelates, howard_resh
 from hydrosolver import utils
 
 
-pure = utils.load_file('compositions/pure.yaml')
-compo = utils.load_file('compositions/compo.yaml')
-chelates = utils.load_file('compositions/chelates.yaml')
-resh = utils.load_file('compositions/howard-resh.yaml')
-
-
-composition_target = resh['Resh composition for peppers']
+composition_target = howard_resh['Resh composition for peppers']
 
 compositions = [
         compo['Hakaphos Basis 2'],

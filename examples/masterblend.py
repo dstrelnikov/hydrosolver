@@ -1,10 +1,8 @@
 from hydrosolver.solution import Solution
 from hydrosolver.composition import Composition
+from hydrosolver.database import pure, masterblend
 from hydrosolver import utils
 
-
-pure = utils.load_file('compositions/pure.yaml')
-masterblend = utils.load_file('compositions/masterblend.yaml')
 
 # https://hydroponicseuro.com/mixing-instructions/
 
